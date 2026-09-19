@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미스터리 팩트체크 수사대 : 코드 I.L.L. (PISA 문해력 & Big 6 정보 리터러시 진단)</title>
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="app-wrapper">
+
+        <!-- ============================================================
+             1. 인트로 화면 (START SCREEN)
+             ============================================================ -->
+        <div id="screen-intro" class="screen active">
+            <div class="intro-container">
+                <div class="intro-hero-card">
+                    <span class="game-logo-badge">AGENT I.L.L. MISSION SYSTEM</span>
+                    <h1 class="game-main-title">미스터리 팩트체크 수사대</h1>
+                    <p class="game-sub-title">5분 추리 게임으로 측정하는 PISA 문해력 & Big 6 Skills 정보 리터러시</p>
+
+                    <div class="story-briefing-box">
+                        <h3>🚨 긴급 수사 의뢰 : 상록중 급식 괴소문 사건</h3>
+                        <p>축제 전날, 학생 익명 SNS에 <strong>"급식 카레에 학생들을 조종하는 액체 나노로봇이 살포된다!"</strong>는 자극적인 괴소문 영상과 글이 퍼져 전교가 큰 혼란에 빠졌습니다.
+
+학교 축제가 취소될 위기에서 학생회와 선생님들은 특별 청소년 수사관인 당신에게 사건의 진실을 밝혀달라고 의뢰했습니다.
+
+제한 시간은 <strong>단 5분!</strong> 디지털 단서를 찾고, 가짜뉴스를 판별하여 진실 보고서를 완성하세요!</p>
+                    </div>
+
+                    <div class="framework-guide-grid">
+                        <div class="framework-card">
+                            <h4>📘 PISA 문해력 3대 축</h4>
+                            <ul>
+                                <li><strong>정보 접근 및 검색</strong>: 핵심 사실 및 키워드 발췌</li>
+                                <li><strong>이해 및 통합</strong>: 복합 문서 비교 및 인과 추론</li>
+                                <li><strong>평가 및 숙고</strong>: 출처 신뢰도 판별 & 가짜뉴스 비판</li>
+                            </ul>
+                        </div>
+                        <div class="framework-card">
+                            <h4>🧩 Big 6 Skills 정보 문제해결</h4>
+                            <ul>
+                                <li><strong>1~2단계</strong>: 과제 정의 & 정보 탐색 전략 수립</li>
+                                <li><strong>3~4단계</strong>: 위치 파악/접근 & 정보의 비판적 활용</li>
+                                <li><strong>5~6단계</strong>: 종합 보고서 작성 & 메타인지 평가</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="profile-input-card">
+                        <h3>🕵️ 수사관 프로필 등록</h3>
+                        <div class="input-row">
+                            <div class="form-group">
+                                <label for="input-student-name">수사관 이름 (성명)</label>
+                                <input type="text" id="input-student-name" placeholder="예: 김민우" maxlength="15">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-student-grade">소속 (학교 / 학년 / 반)</label>
+                                <input type="text" id="input-student-grade" placeholder="예: 상록중 2학년 3반" maxlength="25">
+                            </div>
+                        </div>
+
+                        <button type="button" id="btn-start-game" class="btn-primary-start">
+                            <span>🚀 5분 수사 개시 (사건 현장 투입)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             2. 게임 플레이 화면 (GAME SCREEN)
+             ============================================================ -->
+        <div id="screen-game" class="screen">
+            <!-- HUD 상단 컨트롤 바 -->
+            <header class="game-hud-header">
+                <div class="hud-top-bar">
+                    <div class="hud-agent-info">
+                        <span class="agent-badge-icon">🕵️</span>
+                        <span class="agent-name-label">수사관: <strong id="header-student-name" class="text-highlight">김민우</strong></span>
+                    </div>
+
+                    <div class="hud-right-controls">
+                        <div class="timer-box" title="남은 수사 제한시간">
+                            <span class="timer-icon">⏳</span>
+                            <span id="timer-display">05:00</span>
+                        </div>
+                        <button type="button" id="btn-sound-toggle" class="btn-mini-sound">🔊 소리 켬</button>
+                    </div>
+                </div>
+
+                <!-- 타이머 게이지 바 -->
+                <div class="timer-track">
+                    <div id="timer-progress" class="timer-progress"></div>
+                </div>
+
+                <!-- 5단계 미션 인디케이터 -->
+                <div id="mission-steps" class="mission-step-indicators">
+                    <!-- JS로 5단계 도트 동적 렌더링 -->
+                </div>
+            </header>
+
+            <!-- 미션 동적 렌더링 컨테이너 -->
+            <main id="mission-container">
+                <!-- JS로 Mission 1 ~ Mission 5 동적 렌더링 -->
+            </main>
+        </div>
+
+        <!-- ============================================================
+             3. 진단 결과 리포트 화면 (REPORT SCREEN)
+             ============================================================ -->
+        <div id="screen-report" class="screen">
+            <div class="report-header-banner">
+                <div class="report-badge-icon" id="report-pisa-badge">🏆</div>
+                <h1 class="report-main-title">사건 종결 및 리터러시 종합 진단서</h1>
+                <p class="report-meta-info">
+                    수사관: <strong id="report-student-name" class="text-highlight">김민우</strong> | 
+                    소요 시간: <strong id="report-time-elapsed">3분 42초</strong> | 
+                    인증 코드: AGENT-ILL-2026
+                </p>
+            </div>
+
+            <!-- PISA 성취 수준 개요 카드 -->
+            <div class="report-pisa-overview-card">
+                <div class="pisa-level-badge-row">
+                    <div>
+                        <span class="badge-stage">PISA 2026 문해력 기준 환산</span>
+                        <h2 class="pisa-level-title" id="report-pisa-level-title">LEVEL 6 (마스터 팩트체커)</h2>
+                    </div>
+                    <div class="pisa-score-val" id="report-pisa-total-score">280점 / 300점</div>
+                </div>
+
+                <p class="pisa-level-desc" id="report-pisa-desc">
+                    복합적인 가짜뉴스와 정교한 편향을 날카롭게 꿰뚫어 보며, 다각적인 출처를 완벽하게 교차 검증하고 비판적으로 숙고할 수 있는 최상위 수준의 문해력을 갖추었습니다.
+                </p>
+
+                <!-- PISA 3대 영역 세부 바 -->
+                <div class="pisa-bars-container">
+                    <div class="pbar-item">
+                        <div class="pbar-label-row">
+                            <span>1. 정보 접근 및 검색 (Access & Retrieve)</span>
+                            <span id="pisa-val-access">90점</span>
+                        </div>
+                        <div class="pbar-track">
+                            <div id="pisa-bar-access" class="pbar-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="pbar-item">
+                        <div class="pbar-label-row">
+                            <span>2. 텍스트 이해 및 통합 (Integrate & Interpret)</span>
+                            <span id="pisa-val-integrate">85점</span>
+                        </div>
+                        <div class="pbar-track">
+                            <div id="pisa-bar-integrate" class="pbar-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="pbar-item">
+                        <div class="pbar-label-row">
+                            <span>3. 비판적 평가 및 숙고 (Evaluate & Reflect)</span>
+                            <span id="pisa-val-evaluate">95점</span>
+                        </div>
+                        <div class="pbar-track">
+                            <div id="pisa-bar-evaluate" class="pbar-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Big 6 Skills 레이더 차트 카드 -->
+            <div class="report-big6-card">
+                <h3 class="report-section-title">🧩 Big 6 Skills 정보 리터러시 다각형 진단</h3>
+                <p class="report-section-sub">정보 문제 해결의 6가지 핵심 역량 성취도를 시각화한 레이더 차트입니다.</p>
+                <div class="chart-wrapper">
+                    <canvas id="big6-radar-canvas" width="400" height="340"></canvas>
+                </div>
+            </div>
+
+            <!-- 강점 및 보완점 가이드 그리드 -->
+            <div class="feedback-grid">
+                <div class="fb-card strength">
+                    <h4>🌟 돋보이는 리터러시 강점</h4>
+                    <ul id="report-strengths">
+                        <li>핵심 증거 자료와 공신력 있는 보도자료를 분별하는 감각이 매우 뛰어납니다.</li>
+                    </ul>
+                </div>
+                <div class="fb-card improve">
+                    <h4>🚀 더 성장하기 위한 수사관 팁</h4>
+                    <ul id="report-improvements">
+                        <li>복합적인 장문의 문서를 읽을 때 논리적 전개 과정을 메모하는 습관을 들여보세요.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="fb-summary-pills">
+                <div class="summary-pill">
+                    <span class="pill-label">최고 역량:</span>
+                    <span class="pill-value" id="report-best-skill">가짜뉴스 비판 평가</span>
+                </div>
+                <div class="summary-pill">
+                    <span class="pill-label">성장 필요 역량:</span>
+                    <span class="pill-value" id="report-weak-skill">심층 교차 추론</span>
+                </div>
+            </div>
+
+            <!-- 리포트 하단 액션 버튼들 -->
+            <div class="report-actions-row">
+                <button type="button" id="btn-print-report" class="btn-report-action btn-print">
+                    🖨️ 결과 인쇄 / PDF 저장
+                </button>
+                <button type="button" id="btn-export-csv" class="btn-report-action btn-export">
+                    💾 성적 CSV 다운로드
+                </button>
+                <button type="button" id="btn-restart" class="btn-report-action btn-restart">
+                    🔄 새 사건 수사하기
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 스크립트 로드 (의존성 순서: 데이터 -> 사운드 -> 리포트 -> 엔진) -->
+    <script src="js/quests.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/report.js"></script>
+    <script src="js/engine.js"></script>
+</body>
+</html>
